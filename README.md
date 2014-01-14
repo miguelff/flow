@@ -1,10 +1,10 @@
 Flow
 =====
 
-Keep your flow while working
+Time management under your terms
 
 Why Flow
----------
+--------
 
 I found that the [Pomodoro technique](http://en.wikipedia.org/wiki/Pomodoro_Technique) breaks my flow when I'm successfully immerse in a certain task.
 
@@ -23,7 +23,7 @@ Flow is excellent if you want to be highly productive and in a flow state, while
 If you are a programmer or a designer, and like me, you perform better when deeply immerse in what you are doing, then Flow is for you!
 
 Flow in action
----------------
+--------------
 
 http://flownow.herokuapp.com/
 
