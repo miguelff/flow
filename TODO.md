@@ -1,11 +1,15 @@
 ### Design ###
 
-* Creata a first visualization
+* Paint the basic design
 * Add Fluid support `if(window.fluid) window.fluid.dockBadge = formatted;`
 * Add Fluid support `if(window.fluid) window.fluid.showGrowlNotification({title: prompt});`
 * Add title `window.document.title = "Flow" + " (" + formatted + ")";`
+* Add boot animation
+* Add flip animation
+* Add sounds for maximum coolness
+* Add icons for iOS and OSX
 
-### Devel ####
+### Development ####
 
 * Jasmine coping well with requirejs
 * Extract common behavior in views
