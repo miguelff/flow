@@ -1,0 +1,5 @@
+@import 'normalize.css';
+
+body {
+  background-image: url(/images/baseline.png);
+}
