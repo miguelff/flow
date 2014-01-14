@@ -1,7 +1,7 @@
 Flow
 =====
 
-Time management under your terms
+Time management under your terms.
 
 Why Flow
 --------
