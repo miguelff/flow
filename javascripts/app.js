@@ -16,5 +16,5 @@ require.config({
 
 // Start the main app logic.
 requirejs(['jquery', 'app/mediator'], function ($, Mediator) {
-  Mediator.setup('Basic');
+  Mediator.setup('SimpleChronometer');
 });

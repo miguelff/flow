@@ -31,9 +31,9 @@ define(function(){
   };
 
   function Flow(factor, limit, unitSize){
-    this.factor   = (typeof(factor)   !== "undefined") ? factor   : 2/3;
-    this.limit    = (typeof(limit)    !== "undefined") ? limit    : 90 * 60 * 1000;
-    this.unitSize = (typeof(unitSize) !== "undefined") ? unitSize : 1000;
+    this.factor   = factor 		|| 2/3;
+    this.limit    = limit  		|| 90 * 60 * 1000;
+    this.unitSize = unitSize 	|| 1000;
     this.reset();
   }
 
