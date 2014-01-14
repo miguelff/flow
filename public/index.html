@@ -7,18 +7,6 @@
 <body>
 <p id="feedback"></p>
 
-<script src="js/lib/jquery.min.js"></script>
-<script src="js/src/Flow.js"></script>
-<script src="js/src/FlowView.js"></script>
-<script>
-    var flow  = new Flow(),
-        view  = new FlowView(flow);
-
-    (function () {
-      view.repaint(true);
-      flow.tick();
-      setTimeout(arguments.callee, 1000);
-    })();
-</script>
+<script data-main="js/app.js" src="js/lib/require.js"></script>
 </body>
 </html>

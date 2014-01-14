@@ -20,7 +20,7 @@ What are the trade-offs
 
 Flow is excellent if you want to be highly productive and in a flow state, while keep a good balance between activity and rest. However, this same flexibility makes Flow not so good as a planning technique, something Pomodoro is good at.
 
-If you are a programmer, or a designer, and like me, you perform better when deeply inmerse in what you are doing, then Flow is for you!
+If you are a programmer or a designer, and like me, you perform better when deeply inmerse in what you are doing, then Flow is for you!
 
 Flow in action
 ---------------

@@ -1,4 +1,4 @@
-var FlowView = function($) {
+define(['jquery'], function($) {
 
   var _installHandlers = function(view){
     $(document).on("click", function (e) {
@@ -28,19 +28,30 @@ var FlowView = function($) {
     return Math.round((units / limit) * 10000) / 100
   }
 
-  var Constructor = function(flow){
+  var BasicView  = function(flow){
     this.flow = flow;
     _installHandlers(this);
   }
 
-  Constructor.prototype.repaint = function(refreshBodyClass) {
+  /* This should be in the base of all views, is kinda main loop */
+  BasicView.prototype.setup = function() {
+    var view = this;
+
+    (function () {
+      view.repaint(true);
+      view.flow.tick();
+      setTimeout(arguments.callee, 1000);
+    })();
+  }
+
+  BasicView.prototype.repaint = function(refreshBodyClass) {
     $("#feedback").html(_millisToTime(this.flow.count()));
-    $("#feedback").attr('data-percent', _percent(flow.units, flow.limit));
+    $("#feedback").attr('data-percent', _percent(this.flow.units, this.flow.limit));
     if (refreshBodyClass) {
       $("body").removeClass();
-      $("body").addClass(flow.status());
+      $("body").addClass(this.flow.status());
     }
   };
 
-  return Constructor;
-}($);
+  return BasicView;
+});

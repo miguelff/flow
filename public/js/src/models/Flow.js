@@ -1,4 +1,4 @@
-var Flow = (function() {
+define(function(){
 
   var Working = {
     tick: function(focus) {
@@ -13,7 +13,7 @@ var Flow = (function() {
     },
 
     description: "working"
-   };
+  };
 
   var Breaking = {
     tick:  function(focus) {
@@ -30,34 +30,33 @@ var Flow = (function() {
     description: "breaking"
   };
 
-  function Constructor(factor, limit, unitSize){
+  function Flow(factor, limit, unitSize){
     this.factor   = (typeof(factor)   !== "undefined") ? factor   : 2/3;
     this.limit    = (typeof(limit)    !== "undefined") ? limit    : 90 * 60 * 1000;
     this.unitSize = (typeof(unitSize) !== "undefined") ? unitSize : 1000;
     this.reset();
   }
 
-  Constructor.prototype.reset = function() {
+  Flow.prototype.reset = function() {
     this.units = 0;
     this.state = Working;
   };
 
-  Constructor.prototype.count = function() {
+  Flow.prototype.count = function() {
     return this.state.count(this);
   };
 
-  Constructor.prototype.tick = function() {
+  Flow.prototype.tick = function() {
     this.state.tick(this);
   }
 
-  Constructor.prototype.switch = function(){
+  Flow.prototype.switch = function(){
     this.state = (this.state === Working) ? Breaking : Working;
   }
 
-  Constructor.prototype.status = function(){
+  Flow.prototype.status = function(){
     return this.state.description;
   }
 
-  return Constructor;
-
-}());
+  return Flow;
+});
