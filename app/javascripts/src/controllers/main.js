@@ -1,11 +1,10 @@
-define(['models/flow', 'views/all'], function () {
+define(['require', 'models/flow', 'views/all'], function (r) {
 
   return function(view) {
-    var Flow = require('models/flow');
-    var View = require('views/' + view);
-
-    var model   = new Flow();
-    var view    = new View(model);
+    var Flow  = r('models/flow'),
+        View  = r('views/' + view),
+        model = new Flow(),
+        view  = new View(model);
 
     view.setup();
     this.view   = view;

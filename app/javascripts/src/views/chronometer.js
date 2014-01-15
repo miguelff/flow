@@ -32,9 +32,11 @@ define(['views/base', 'util/all'], function(Base, Util) {
     },
 
     repaint: function() {
-      var time = _millisToTime(this.flow.count());
-      var percent = _percent(this.flow.units, this.flow.limit)
-      Util.render('chronometer', '#container', {time: time, percent: percent});
+      var time    = _millisToTime(this.flow.count()),
+          percent = _percent(this.flow.units, this.flow.limit),
+          html    = Util.render('chronometer', {time: time, percent: percent});
+
+      $('#container').html(html);
       window.document.title = "Flow" + " (" + time + ")";
     }
   });

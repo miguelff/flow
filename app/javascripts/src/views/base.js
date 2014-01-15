@@ -36,7 +36,6 @@ define(['jquery','class'], function ($, Class) {
         e.preventDefault();
       });
     }
-
   });
 
   return Base;
