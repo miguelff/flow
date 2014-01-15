@@ -13,6 +13,10 @@ define(function(){
       return focus.units;
     },
 
+    finished: function(focus) {
+      return focus.units == focus.limit;
+    },
+
     description: "working"
   };
 
@@ -27,6 +31,10 @@ define(function(){
 
     count: function(focus){
       return focus.units * (focus.factor);
+    },
+
+    finished: function(focus) {
+      return focus.units == 0;
     },
 
     description: "breaking"
@@ -76,6 +84,10 @@ define(function(){
 
   Flow.prototype.status = function(){
     return this.state.description;
+  }
+
+  Flow.prototype.finished = function() {
+    return this.state.finished(this);
   }
 
   Flow.prototype.limitReached = function(){

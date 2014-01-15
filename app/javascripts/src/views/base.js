@@ -8,6 +8,16 @@
  */
 define(['jquery','class'], function ($, Class) {
 
+  var _runLoop = function(view){
+    (function () {
+      view.flow.tick();
+      view.repaint();
+      if (!view.flow.finished()) {
+        setTimeout(arguments.callee, 1000);
+      }
+    })();
+  }
+
   var Base = Class.extend({
 
     init: function (flow) {
@@ -17,20 +27,20 @@ define(['jquery','class'], function ($, Class) {
 
     setup: function () {
       var view = this;
-
-      (function () {
-        view.repaint(true);
-        view.flow.tick();
-        setTimeout(arguments.callee, 1000);
-      })();
+      view.repaint();
+      setTimeout(function(){_runLoop(view)},1000);
     },
 
     installHandlers: function () {
       var view = this;
 
       $(document).on("click", function (e) {
-        view.flow.switch();
-        view.repaint();
+        if (view.flow.finished()){
+          view.flow.switch();
+          view.setup();
+        }else{
+          view.flow.switch();
+        }
         $("body").removeClass();
         $("body").addClass(view.flow.status());
         e.preventDefault();
