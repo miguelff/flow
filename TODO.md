@@ -1,6 +1,5 @@
 ### Design ###
 
-* Paint the basic design
 * Add icons for iOS and OSX
 * Paint boot animation
 * Paint flip animation

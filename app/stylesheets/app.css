@@ -1,5 +1,107 @@
-@import 'normalize.css';
+@import "normalize.css";
+
+@-webkit-keyframes pulse {
+  0% { }
+  50% { }
+  100% { }
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
 
 body {
-  background-image: url(/images/baseline.png);
+  background-color: #191919;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica", sans-serif;
+  font-size: 14px;
+  line-height: 22px;
 }
+
+#container {
+  bottom: 0;
+  height: 380px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 380px;
+}
+
+.settings {
+  -webkit-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+  background: url(/images/settings.svg) no-repeat;
+  color: #666;
+  display: block;
+  float: right;
+  line-height: 24px;
+  opacity: 0.25;
+  overflow: hidden;
+  text-decoration: none;
+  text-indent: -9999px;
+  width: 24px;
+}
+
+.settings:hover {
+  opacity: 0.6;
+}
+
+.settings:active {
+  color: #fff;
+}
+
+.chronometer {
+  /*-webkit-animation: pulse 2s infinite ease-in-out;*/
+  background-color: #8BBE2D;
+  border-radius: 9999px;
+  clear: both;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  height: 220px;
+  margin: 44px auto 66px auto;
+  width: 220px;
+}
+
+.chronometer:hover span {
+  opacity: 1;
+}
+
+.chronometer span {
+  -webkit-transition: opacity 0.25s ease-out;
+  transition: opacity 0.25s ease-out;
+  display: block;
+  font-size: 20px;
+  line-height: 44px;
+  opacity: 0;
+  padding-top: 88px;
+  text-align: center;
+}
+
+.button {
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  border-radius: 9999px;
+  border: 3px solid #323232;
+  color: #eee;
+  display: block;
+  font-size: 16px;
+  line-height: 38px;
+  margin: 0 auto;
+  text-align: center;
+  text-decoration: none;
+  width: 160px;
+}
+
+.button:hover {
+  border-color: #555;
+  color: #fff;
+}
+
+.button:active {
+  background-color: #555;
+  border-color: #555;
+  color: #fff;
+}
+
