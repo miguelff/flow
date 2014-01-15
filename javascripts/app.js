@@ -2,6 +2,20 @@ require.config({
 
   baseUrl: 'javascripts/lib',
 
+  shim: {
+    'soundjs': {
+      exports: 'createjs.Sound'
+    },
+
+    'preload': {
+      exports: 'createjs.LoadQueue'
+    },
+
+    'class': {
+      exports: 'Class'
+    }
+  },
+
   paths: {
     models: '../src/models',
     views:  '../src/views',
@@ -10,6 +24,6 @@ require.config({
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'app/mediator'], function ($, Mediator) {
+requirejs(['jquery', 'class', 'app/mediator'], function ($, Class, Mediator) {
   Mediator.setup('SimpleChronometer');
 });
