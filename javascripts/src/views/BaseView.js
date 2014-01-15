@@ -6,36 +6,39 @@
  *  - createContainer: creates the HTML structure for holding view elements
  *  - repaint: refreshes the content rendered on the browser
  */
-define(['jquery'], function($) {
+define(['jquery'], function ($) {
 
-  var BaseView = function(flow){
-    this.flow = flow;
-    this.installHandlers();
-  };
+  var BaseView = Class.extend({
 
-  BaseView.prototype.setup = function() {
-    var view = this;
-		view.createContainer();
+    init: function (flow) {
+      this.flow = flow;
+      this.installHandlers();
+    },
 
-    (function () {
-      view.repaint(true);
-      view.flow.tick();
-      setTimeout(arguments.callee, 1000);
-    })();
-  };
+    setup: function () {
+      var view = this;
+      view.createContainer();
 
-  BaseView.prototype.installHandlers = function(){
-    var view = this;
+      (function () {
+        view.repaint(true);
+        view.flow.tick();
+        setTimeout(arguments.callee, 1000);
+      })();
+    },
 
-    $(document).on("click", function (e) {
-      view.flow.switch();
-      view.repaint();
-      $("body").removeClass();
-      $("body").addClass(view.flow.status());
-      e.preventDefault();
-    });
-  };
+    installHandlers: function () {
+      var view = this;
+
+      $(document).on("click", function (e) {
+        view.flow.switch();
+        view.repaint();
+        $("body").removeClass();
+        $("body").addClass(view.flow.status());
+        e.preventDefault();
+      });
+    }
+
+  });
 
   return BaseView;
-
 });
