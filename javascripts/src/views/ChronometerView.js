@@ -1,7 +1,7 @@
-define(['views/BaseView', 'jquery', 'preload', 'soundjs'], function(BaseView, $, Preload, Sound) {
+define(['views/BaseView', 'app/Util'], function(BaseView, Util) {
 
-  Sound.registerSound({id:"tick", src:"sounds/tick.wav"});
-  Sound.registerSound({id:"done", src:"sounds/tick.wav"});
+  Util.Sound.registerSound({id:"tick", src:"sounds/tick.wav"});
+  Util.Sound.registerSound({id:"done", src:"sounds/tick.wav"});
 
   var _millisToTime = function(millis) {
     var in_seconds = Math.floor(millis / 1000),
@@ -20,28 +20,24 @@ define(['views/BaseView', 'jquery', 'preload', 'soundjs'], function(BaseView, $,
     return Math.round((units / limit) * 10000) / 100
   }
 
-  var SimpleChronometerView  = BaseView.extend({
+  var ChronometerView  = BaseView.extend({
     init: function(flow){
       this._super(flow);
     },
 
     setup: function() {
       this._super();
-      this.flow.onLimitReached(function(){Sound.play("done");});
-      this.flow.onZeroReached(function(){Sound.play("tick");});
+      this.flow.onLimitReached(function(){Util.Sound.play("done");});
+      this.flow.onZeroReached(function(){Util.Sound.play("tick");});
     },
 
     repaint: function() {
       var time = _millisToTime(this.flow.count());
-      $("#feedback").html(time);
-      $("#feedback").attr('data-percent', _percent(this.flow.units, this.flow.limit));
+      var percent = _percent(this.flow.units, this.flow.limit)
+      Util.render('chronometer', '#container', {time: time, percent: percent});
       window.document.title = "Flow" + " (" + time + ")";
-    },
-
-    createContainer: function(){
-      $("body").html('<p id="feedback"></p>');
     }
   });
 
-  return SimpleChronometerView;
+  return ChronometerView;
 });

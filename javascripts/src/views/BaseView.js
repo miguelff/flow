@@ -17,7 +17,6 @@ define(['jquery'], function ($) {
 
     setup: function () {
       var view = this;
-      view.createContainer();
 
       (function () {
         view.repaint(true);
