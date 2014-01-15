@@ -1,5 +1,4 @@
-define(function (require) {
-  var Flow = require('models/Flow');
+define(function() {
 
   /**
    * Dynamic setups the application based on the kind of view requested
@@ -7,16 +6,16 @@ define(function (require) {
    * @private
    */
   var _setup = function(view){
-    var flow = new Flow();
-    require(['views/'+view+"View"], function(View){
-      view = new View(flow);
+    require(['models/flow', 'views/'+view], function(Flow, View){
+      var flow = new Flow();
+      var view = new View(flow);
       view.setup();
     });
   };
 
-  var Mediator = {
+  var MainController = {
     setup: _setup
   };
 
-  return Mediator;
+  return MainController;
 });

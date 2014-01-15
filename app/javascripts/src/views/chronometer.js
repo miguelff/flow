@@ -1,4 +1,4 @@
-define(['views/BaseView', 'app/Util'], function(BaseView, Util) {
+define(['views/base', 'util/all'], function(Base, Util) {
 
   Util.Sound.registerSound({id:"tick", src:"sounds/tick.wav"});
   Util.Sound.registerSound({id:"done", src:"sounds/tick.wav"});
@@ -20,7 +20,7 @@ define(['views/BaseView', 'app/Util'], function(BaseView, Util) {
     return Math.round((units / limit) * 10000) / 100
   }
 
-  var ChronometerView  = BaseView.extend({
+  var Chronometer  = Base.extend({
     init: function(flow){
       this._super(flow);
     },
@@ -39,5 +39,5 @@ define(['views/BaseView', 'app/Util'], function(BaseView, Util) {
     }
   });
 
-  return ChronometerView;
+  return Chronometer;
 });

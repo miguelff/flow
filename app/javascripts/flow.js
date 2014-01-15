@@ -21,15 +21,16 @@ require.config({
   },
 
   paths: {
-    models:   '../src/models',
-    views:    '../src/views',
-    templates:'../src/templates',
-    util:     '../src/util',
-    app:      '../src'
+    models:      '../src/model',
+    views:       '../src/views',
+    controllers: '../src/controllers',
+    util:        '../src/util',
+    app:         '../src',
+    templates:   '../../templates'
   }
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'class', 'app/Mediator'], function ($, Class, Mediator) {
-  Mediator.setup('Chronometer');
+requirejs(['jquery', 'class', 'controllers/main'], function ($, Class, Main) {
+  Main.setup('chronometer');
 });
