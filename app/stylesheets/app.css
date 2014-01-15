@@ -31,7 +31,7 @@ body {
 .settings {
   -webkit-transition: opacity 0.5s linear;
   transition: opacity 0.5s linear;
-  background: url(/images/settings.svg) no-repeat;
+  background: url(/images/icons/settings.svg) no-repeat;
   color: #666;
   display: block;
   float: right;
