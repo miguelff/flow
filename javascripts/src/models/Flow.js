@@ -5,6 +5,7 @@ define(function(){
       focus.units += focus.unitSize
       if (focus.units  >= focus.limit) {
         focus.units = focus.limit;
+        focus.limit();
       }
     },
 
@@ -20,6 +21,7 @@ define(function(){
       focus.units -= Math.round((1 / (1-focus.factor)) * focus.unitSize);
       if (focus.units <= 0) {
         focus.units = 0;
+        focus.zero();
       }
     },
 
@@ -40,6 +42,8 @@ define(function(){
   Flow.prototype.reset = function() {
     this.units = 0;
     this.state = Working;
+    this.limitCallbacks = [];
+    this.zeroCallbacks  = [];
   };
 
   Flow.prototype.count = function() {
@@ -57,6 +61,26 @@ define(function(){
   Flow.prototype.status = function(){
     return this.state.description;
   }
+
+  Flow.prototype.limit = function(){
+    for (var callback in this.limitCallbacks) {
+      this.limitCallbacks[callback](this);
+    }
+  }
+
+  Flow.prototype.zero = function(){
+    for (var callback in this.zeroCallbacks) {
+      this.zeroCallbacks[callback](this);
+    }
+  }
+
+  Flow.prototype.onLimitReached = function(callback) {
+    this.limitCallbacks.push(callback);
+  };
+
+  Flow.prototype.onZeroReached = function(callback) {
+    this.zeroCallbacks.push(callback);
+  };
 
   return Flow;
 });
