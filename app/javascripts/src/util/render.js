@@ -1,9 +1,8 @@
-define(function(){
+define(['hogan', 'jquery', 'templates/all'], function(Hogan, $){
 
   return function(templateName, selector, bindings) {
-    require(['hogan', 'jquery', 'text!templates/'+templateName+'.html'], function(Hogan, $, template){
-      var template = Hogan.compile(template);
+      var template = require('text!templates/'+templateName+'.html');
+      template = Hogan.compile(template);
       $(selector).html(template.render(bindings));
-    });
   };
 });

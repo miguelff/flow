@@ -6,7 +6,7 @@
  *  - createContainer: creates the HTML structure for holding view elements
  *  - repaint: refreshes the content rendered on the browser
  */
-define(['jquery'], function ($) {
+define(['jquery','class'], function ($, Class) {
 
   var Base = Class.extend({
 

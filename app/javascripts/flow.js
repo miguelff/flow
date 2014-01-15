@@ -26,11 +26,11 @@ require.config({
     controllers: '../src/controllers',
     util:        '../src/util',
     app:         '../src',
-    templates:   '../../templates'
+    templates:   '../src/templates'
   }
 });
 
-// Start the main app logic.
-requirejs(['jquery', 'class', 'controllers/main'], function ($, Class, Main) {
-  Main.setup('chronometer');
+// Start the main app logic, eager loading the main model and all views
+requirejs(['controllers/main'], function (main) {
+  main('chronometer');
 });
