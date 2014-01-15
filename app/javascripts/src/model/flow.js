@@ -5,7 +5,7 @@ define(function(){
       focus.units += focus.unitSize
       if (focus.units  >= focus.limit) {
         focus.units = focus.limit;
-        focus.limit();
+        focus.limitReached();
       }
     },
 
@@ -18,24 +18,40 @@ define(function(){
 
   var Breaking = {
     tick:  function(focus) {
-      focus.units -= Math.round((1 / (1-focus.factor)) * focus.unitSize);
+      focus.units -= Math.round((1 / (focus.factor)) * focus.unitSize);
       if (focus.units <= 0) {
         focus.units = 0;
-        focus.zero();
+        focus.zeroReached();
       }
     },
 
     count: function(focus){
-      return focus.units * (1-focus.factor);
+      return focus.units * (focus.factor);
     },
 
     description: "breaking"
   };
 
-  function Flow(factor, limit, unitSize){
-    this.factor   = factor 		|| 2/3;
-    this.limit    = limit  		|| 90 * 60 * 1000;
-    this.unitSize = unitSize 	|| 1000;
+  /**
+   * A flow object accumulates time while in working
+   * state, and deaccumulates time in breaking state
+   * at a certain factor
+   *
+   * Usually the quantity is time expressed in seconds
+   * @param options an object that can contain the following values
+   *
+   * {
+   *   factor: defaults to 1/3 and is the factor at which deaccumulates time in resting state
+   *   limit:  the maximum time it can accumulate while working (expressed in seconds) defaults to 90 minutes
+   * }
+   */
+  function Flow(options){
+    var options   = options || {};
+
+    this.unitSize = 1000;
+    this.factor   = options.factor  || 1/3;
+    this.limit    = (options.limit  || 90 * 60) * this.unitSize;
+
     this.reset();
   }
 
@@ -62,13 +78,13 @@ define(function(){
     return this.state.description;
   }
 
-  Flow.prototype.limit = function(){
+  Flow.prototype.limitReached = function(){
     for (var callback in this.limitCallbacks) {
       this.limitCallbacks[callback](this);
     }
   }
 
-  Flow.prototype.zero = function(){
+  Flow.prototype.zeroReached = function(){
     for (var callback in this.zeroCallbacks) {
       this.zeroCallbacks[callback](this);
     }

@@ -32,5 +32,12 @@ require.config({
 
 // Start the main app logic, eager loading the main model and all views
 requirejs(['controllers/main'], function (main) {
-  main('chronometer');
+  main({
+    view: 'chronometer',
+
+    modelOptions: {
+      limit : 90 * 60,
+      factor: 1/3
+    }
+  });
 });
