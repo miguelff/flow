@@ -41,4 +41,4 @@ Make your changes, and if you are proud of them, open a pull-request.
 Credits
 -------
 
-Copyright (c) 2014 Miguel Fernández and Marcelino Llano. Released under the MIT license.
+Copyright (c) 2014 Miguel Fernández and Marcelino Llano and Buti Romero. Released under the MIT license.
