@@ -1,39 +1,47 @@
-define(['views/BaseView', 'jquery'], function(BaseView, $) {
+define(['views/BaseView', 'jquery', 'preload', 'soundjs'], function(BaseView, $, Preload, Sound) {
+
+  Sound.registerSound({id:"tick", src:"sounds/tick.wav"});
+  Sound.registerSound({id:"done", src:"sounds/tick.wav"});
 
   var _millisToTime = function(millis) {
     var in_seconds = Math.floor(millis / 1000),
-        in_minutes = Math.floor(in_seconds / 60),
-        in_hours   = Math.floor(in_minutes / 60);
+        in_minutes = Math.floor(in_seconds / 60);
 
     var seconds = in_seconds % 60,
-        minutes = in_minutes % 60,
-        hours   = in_hours;
+        minutes = in_minutes;
 
-    if (hours   < 10) {hours   = "0"+hours;}
     if (minutes < 10) {minutes = "0"+minutes;}
     if (seconds < 10) {seconds = "0"+seconds;}
 
-    return hours+':'+minutes+':'+seconds;
+    return minutes+':'+seconds;
   };
 
   var _percent = function(units, limit) {
     return Math.round((units / limit) * 10000) / 100
   }
 
-  var SimpleChronometerView  = function(flow){
-    BaseView.call(this, flow);
-  }
+  var SimpleChronometerView  = BaseView.extend({
+    init: function(flow){
+      this._super(flow);
+    },
 
-  SimpleChronometerView.prototype = Object.create(BaseView.prototype);
+    setup: function() {
+      this._super();
+      this.flow.onLimitReached(function(){Sound.play("done");});
+      this.flow.onZeroReached(function(){Sound.play("tick");});
+    },
 
-  SimpleChronometerView.prototype.createContainer = function() {
-      $("#container").html('<p id="feedback"/>');
-  };
+    repaint: function() {
+      var time = _millisToTime(this.flow.count());
+      $("#feedback").html(time);
+      $("#feedback").attr('data-percent', _percent(this.flow.units, this.flow.limit));
+      window.document.title = "Flow" + " (" + time + ")";
+    },
 
-  SimpleChronometerView.prototype.repaint = function() {
-    $("#feedback").html(_millisToTime(this.flow.count()));
-    $("#feedback").attr('data-percent', _percent(this.flow.units, this.flow.limit));
-  };
+    createContainer: function(){
+      $("body").html('<p id="feedback"></p>');
+    }
+  });
 
   return SimpleChronometerView;
 });
