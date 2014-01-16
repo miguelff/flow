@@ -1,7 +1,7 @@
 define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
 
   Util.Sound.registerSound({id:"tick", src:"sounds/tick.wav"});
-  Util.Sound.registerSound({id:"done", src:"sounds/tick.wav"});
+  Util.Sound.registerSound({id:"done", src:"sounds/done.wav"});
 
   var _millisToTime = function(millis) {
     var ss = Math.floor(millis / 1000),
