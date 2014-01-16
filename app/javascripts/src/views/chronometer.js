@@ -52,8 +52,9 @@ define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
 
     installHandlers: function(){
       this._super();
-      $(document).on('click','.button', function(){
+      $(document).on('click','.button', function(e){
         $(this).trigger('flow.switch');
+        e.preventDefault();
       });
     },
 
