@@ -65,7 +65,7 @@ define(function(){
 
   Flow.prototype.reset = function() {
     this.units = 0;
-    this.state = Working;
+    this.state = Breaking;
     this.limitCallbacks = [];
     this.zeroCallbacks  = [];
   };
@@ -79,7 +79,15 @@ define(function(){
   }
 
   Flow.prototype.switch = function(){
-    this.state = (this.state === Working) ? Breaking : Working;
+    (this.state === Working) ? this.break() : this.work();
+  }
+
+  Flow.prototype.break = function(){
+    this.state = Breaking;
+  }
+
+  Flow.prototype.work = function(){
+    this.state = Working;
   }
 
   Flow.prototype.status = function(){

@@ -12,9 +12,9 @@ define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
   var _presenter = function (view){
     var f       = view.flow,
         status  = f.status(),
-        time    = (status == 'breaking' ? '-' : '') + _millisToTime(f.count()),
         percent = Math.round((f.units / f.limit) * 10000) / 100,
-        text    = (status = 'working' && percent > 0) ? 'rest' : 'flow';
+        time    = (status == 'breaking' && percent > 0  ? '-'     : ''    ) + _millisToTime(f.count()),
+        text    = (status == 'working'  && percent > 0) ? 'rest'  : 'flow';
 
     return  {status: status, time: time, percent: percent, buttonText: text};
   }
@@ -43,8 +43,9 @@ define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
     },
 
     setup: function() {
-      _fullRepaint(this);
       this._super();
+      this.flow.break();
+      _fullRepaint(this);
       this.flow.onLimitReached(function(){Util.Sound.play("done");});
       this.flow.onZeroReached(function(){Util.Sound.play("tick");});
     },
