@@ -5,7 +5,7 @@ define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
 
   var _millisToTime = function(millis) {
     var ss = Math.floor(millis / 1000) % 60,
-        mm = Math.floor(millis / (60 * 1000)) % 60;
+        mm = Math.floor(millis / (60 * 1000));
     return (mm < 10 ? '0': '') + mm +':'+ (ss < 10 ? '0' : '') + ss;
   };
 
