@@ -26,17 +26,16 @@ define(['jquery','class'], function ($, Class) {
     },
 
     setup: function () {
-      var view = this;
-      setTimeout(function(){_runLoop(view)},1000);
+      /* place holder for base behavior */
     },
 
     installHandlers: function () {
       var view = this;
 
-      $(document).on("click", function (e) {
+      $(document).on("flow.switch", function (e) {
         if (view.flow.finished()){
           view.flow.switch();
-          view.setup();
+          setTimeout(function(){_runLoop(view)},1000);
         }else{
           view.flow.switch();
         }
