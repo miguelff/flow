@@ -1,8 +1,10 @@
 ### Design ###
 
+* Paint flip animation or scale or both
+* Try out blend modes for better transitions
+* Try to hide and show time between start/pause
+* Paint boot animation, will need some js here
 * Add icons for iOS and OSX
-* Paint boot animation
-* Paint flip animation
 
 ### Development ####
 
