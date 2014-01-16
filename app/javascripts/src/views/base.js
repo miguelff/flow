@@ -27,7 +27,6 @@ define(['jquery','class'], function ($, Class) {
 
     setup: function () {
       var view = this;
-      view.repaint();
       setTimeout(function(){_runLoop(view)},1000);
     },
 

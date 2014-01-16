@@ -20,25 +20,49 @@ define(['views/base', 'util/all'], function(Base, Util) {
     return Math.round((units / limit) * 10000) / 100
   }
 
+  var _presenter = function (view){
+    var time    = _millisToTime(view.flow.count()),
+        percent = _percent(view.flow.units, view.flow.limit),
+        status  = view.flow.status();
+
+    if (view.flow.status() == 'breaking') {
+      time = '-' + time;
+    }
+
+    return  {status: status, time: time, percent: percent};
+  }
+
+  var _changeTitle = function(time){
+    window.document.title = "Flow" + " (" + time + ")";
+  }
+
+  var _fullRepaint = function(view){
+    var presenter = _presenter(view);
+    $('#container').html(Util.render('chronometer', presenter));
+    _changeTitle(presenter.time);
+  }
+
+  var _partialRepaint = function(view){
+    var presenter = _presenter(view);
+    $('.chronometer').attr('data-percent', presenter.percent);
+    $('.chronometer span').html(presenter.time);
+    _changeTitle(presenter.time);
+  }
+
   var Chronometer  = Base.extend({
     init: function(flow){
       this._super(flow);
     },
 
     setup: function() {
+      _fullRepaint(this);
       this._super();
       this.flow.onLimitReached(function(){Util.Sound.play("done");});
       this.flow.onZeroReached(function(){Util.Sound.play("tick");});
     },
 
     repaint: function() {
-      var time    = _millisToTime(this.flow.count()),
-          percent = _percent(this.flow.units, this.flow.limit),
-          status  = this.flow.status(),
-          html    = Util.render('chronometer', {status: status, time: time, percent: percent});
-
-      $('#container').html(html);
-      window.document.title = "Flow" + " (" + time + ")";
+      _partialRepaint(this);
     }
   });
 
