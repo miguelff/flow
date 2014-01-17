@@ -17,8 +17,8 @@ define(['jquery', 'views/base', 'util/all', 'text!./template.html','text!./style
     return Util.Color.interpolate(from, to, total, k);
   }
 
-  var _size = function(percent) {
-    return 220 - (110 * percent / 100);
+  var _scale = function(percent) {
+    return (100 - (percent / 2)) / 100;
   }
 
   var _presenter = function (view){
@@ -29,9 +29,9 @@ define(['jquery', 'views/base', 'util/all', 'text!./template.html','text!./style
         time        = (status == 'breaking' && percent > 0  ? '-'     : ''    ) + _unitsToTime(f.count(), f.unitSize),
         text        = (status == 'working'  && percent > 0) ? 'Rest'  : 'Work',
         color       = _color(status, percent),
-        size        = _size(percent);
+        scale       = _scale(percent);
 
-    return  {status: status, time: time, color: color, size: size, buttonText: text, secondsLeft: secondsLeft};
+    return  {status: status, time: time, color: color, scale: scale, buttonText: text, secondsLeft: secondsLeft};
   }
 
   var _changeTitle = function(time){
@@ -53,11 +53,13 @@ define(['jquery', 'views/base', 'util/all', 'text!./template.html','text!./style
     },
 
     refresh: function(){
-      var presenter = _presenter(this);
-      var size = presenter.size;
-      $('.chronometer').css({'background-color': presenter.color,
-                             'height': size + 'px',
-                             'width' : size + 'px'});
+      var presenter = _presenter(this),
+          scale     = presenter.scale;
+
+      $('.chronometer').css({'background-color' : presenter.color,
+                             '-webkit-transform': 'scale('+ scale + ','+ scale +')',
+                             'transform'        : 'scale('+ scale + ','+ scale +')'});
+
       $('.chronometer span').html(presenter.time);
       $('.button').html(presenter.buttonText);
       $('body').removeClass();
