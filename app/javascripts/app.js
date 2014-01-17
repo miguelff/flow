@@ -26,7 +26,7 @@ require.config({
     controllers: '../src/controllers',
     util:        '../src/util',
     app:         '../src',
-    templates:   '../src/templates'
+    themes:      '../../themes'
   }
 });
 
@@ -36,7 +36,7 @@ requirejs(['controllers/main'], function (main) {
     view: 'chronometer',
 
     modelOptions: {
-      limit : 90 * 60,
+      limit : 60,
       factor: 1/3
     }
   });

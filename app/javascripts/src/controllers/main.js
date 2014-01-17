@@ -1,4 +1,4 @@
-define(['require', 'models/flow', 'views/all'], function (r) {
+define(function() {
 
   /**
    * The main controller function serves as
@@ -15,18 +15,15 @@ define(['require', 'models/flow', 'views/all'], function (r) {
    */
   var MainController = function(options) {
     var options = options || {};
-    options.view = options.view || 'chronometer';
+    options.theme = options.theme || 'chronometer';
 
-    var Flow  = r('models/flow'),
-        View  = r('views/' + options.view);
+    require(['models/flow', 'themes/chronometer/view.js'], function(Flow, View){
+      var model = new Flow(options.modelOptions),
+          view  = new View(model, options.viewOptions);
 
-    var model = new Flow(options.modelOptions),
-        view  = new View(model, options.viewOptions);
-
-    view.setup();
-    this.view   = view;
-
-    return this;
+      view.setup();
+      window.view = view
+    });
   };
 
   return MainController;

@@ -1,7 +1,7 @@
-define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
+define(['jquery', 'views/base', 'util/all', 'text!./template.html','text!./stylesheet.css'], function($, Base, Util, template, styles) {
 
-  Util.Sound.registerSound({id:"tick", src:"sounds/tick.wav"});
-  Util.Sound.registerSound({id:"done", src:"sounds/done.wav"});
+  Util.Sound.registerSound({id:"tick", src:"themes/chronometer/tick.wav"});
+  Util.Sound.registerSound({id:"done", src:"themes/chronometer/done.wav"});
 
   var _millisToTime = function(millis) {
     var ss = Math.floor(millis / 1000) % 60,
@@ -13,10 +13,11 @@ define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
     var f       = view.flow,
         status  = f.status(),
         percent = Math.round((f.units / f.limit) * 10000) / 100,
+        limit   = Math.round(f.limit / 1000),
         time    = (status == 'breaking' && percent > 0  ? '-'     : ''    ) + _millisToTime(f.count()),
         text    = (status == 'working'  && percent > 0) ? 'Rest'  : 'Work';
 
-    return  {status: status, time: time, percent: percent, buttonText: text};
+    return  {status: status, time: time, percent: percent, buttonText: text, limit_in_seconds: limit};
   }
 
   var _changeTitle = function(time){
@@ -25,7 +26,7 @@ define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
 
   var _fullRepaint = function(view){
     var presenter = _presenter(view);
-    $('#container').html(Util.render('chronometer', presenter));
+    $('#container').html(Util.render(template, presenter, {styles: styles}));
     _changeTitle(presenter.time);
   }
 

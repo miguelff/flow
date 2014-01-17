@@ -1,5 +1,3 @@
-@import "normalize.css";
-
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -66,8 +64,8 @@ body {
 }
 
 .chronometer {
-  -webkit-transition: all 2400s ease-in-out;
-  transition: all 2400s ease-in-out;
+  -webkit-transition: all {{limit_in_seconds}}s ease-in-out;
+  transition: all {{limit_in_seconds}}s ease-in-out;
   -webkit-transform: scale(1, 1);
   transform: scale(1, 1);
   background: #5EAE22;
