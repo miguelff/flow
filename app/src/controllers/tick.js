@@ -1,4 +1,4 @@
 (function () {
   self.postMessage('worker.tick');
-  setTimeout(arguments.callee, 10);
+  setTimeout(arguments.callee, 50);
 })();

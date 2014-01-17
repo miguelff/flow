@@ -36,9 +36,10 @@ requirejs(['controllers/default'], function (Controller) {
     theme: 'chronometer',
 
     modelOptions: {
-      unitSize : 10000,
-      tickSize : 1000,
-      limit : 60,
+      // 20 fps
+      tickSize: 50,
+      unitSize: 1000,
+      limit : 60 * 90,
       factor:.3
     }
   });
