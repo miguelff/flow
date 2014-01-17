@@ -4,7 +4,7 @@
 }
 
 body {
-  /* background-image: url(/images/baseline.png); */
+  /* background-image: url(/themes/chronometer/images/baseline.png); */
   background-color: #191919;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica", sans-serif;
   font-size: 14px;
@@ -27,7 +27,7 @@ body {
 .settings {
   -webkit-transition: all 0.5s linear;
   transition: all 0.5s linear;
-  background: url(/images/icons/settings.svg) no-repeat center;
+  background: url(/themes/chronometer/images/settings.svg) no-repeat center;
   color: #666;
   display: block;
   float: right;
@@ -48,27 +48,8 @@ body {
 }
 
 /* Ball */
-
-.chronometer::after {
-  -webkit-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
-  background: #898F96;
-  border-radius: 9999px;
-  content: "";
-  display: block;
-  height: 220px;
-  margin-top: -132px;
-  opacity: 1;
-  position: relative;
-  width: 220px;
-}
-
 .chronometer {
-  -webkit-transition: all {{limit_in_seconds}}s ease-in-out;
-  transition: all {{limit_in_seconds}}s ease-in-out;
-  -webkit-transform: scale(1, 1);
-  transform: scale(1, 1);
-  background: #5EAE22;
+  background: #898F96;
   border-radius: 9999px;
   clear: both;
   color: #fff;
@@ -76,33 +57,6 @@ body {
   height: 220px;
   margin: 44px auto 66px auto;
   width: 220px;
-}
-
-/* Working */
-
-.working .chronometer {
-  -webkit-transform: scale(0.5, 0.5);
-  transform: scale(0.5, 0.5);
-  background: #E7522D;
-}
-
-.working .chronometer::after {
-  opacity: 0;
-}
-
-/* Breaking */
-
-.breaking .chronometer {
-  -webkit-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
-  -webkit-transform: scale(1, 1);
-  transform: scale(1, 1);
-  background: #5EAE22;
-}
-
-.breaking .chronometer::after {
-  background: #206EC8;
-  opacity: 1;
 }
 
 /* Count */

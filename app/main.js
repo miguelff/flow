@@ -1,6 +1,6 @@
 require.config({
 
-  baseUrl: 'javascripts/lib',
+  baseUrl: 'lib',
 
   shim: {
     'soundjs': {
@@ -26,18 +26,20 @@ require.config({
     controllers: '../src/controllers',
     util:        '../src/util',
     app:         '../src',
-    themes:      '../../themes'
+    themes:      '../themes'
   }
 });
 
 // Start the main app logic, eager loading the main model and all views
-requirejs(['controllers/main'], function (main) {
-  main({
-    view: 'chronometer',
+requirejs(['controllers/default'], function (Controller) {
+  Controller.init({
+    theme: 'chronometer',
 
     modelOptions: {
+      unitSize : 10000,
+      tickSize : 1000,
       limit : 60,
-      factor: 1/3
+      factor:.3
     }
   });
 });

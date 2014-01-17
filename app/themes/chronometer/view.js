@@ -1,66 +1,78 @@
 define(['jquery', 'views/base', 'util/all', 'text!./template.html','text!./stylesheet.css'], function($, Base, Util, template, styles) {
 
-  Util.Sound.registerSound({id:"tick", src:"themes/chronometer/tick.wav"});
-  Util.Sound.registerSound({id:"done", src:"themes/chronometer/done.wav"});
+  Util.Sound.registerSound({id:"tick", src:"themes/chronometer/sounds/tick.wav"});
+  Util.Sound.registerSound({id:"done", src:"themes/chronometer/sounds/done.wav"});
 
-  var _millisToTime = function(millis) {
-    var ss = Math.floor(millis / 1000) % 60,
-        mm = Math.floor(millis / (60 * 1000));
+  var _unitsToTime = function(units, precision) {
+    var ss = Math.floor(units / precision) % 60,
+        mm = Math.floor(units / (60 * precision));
     return (mm < 10 ? '0': '') + mm +':'+ (ss < 10 ? '0' : '') + ss;
   };
 
-  var _presenter = function (view){
-    var f       = view.flow,
-        status  = f.status(),
-        percent = Math.round((f.units / f.limit) * 10000) / 100,
-        limit   = Math.round(f.limit / 1000),
-        time    = (status == 'breaking' && percent > 0  ? '-'     : ''    ) + _millisToTime(f.count()),
-        text    = (status == 'working'  && percent > 0) ? 'Rest'  : 'Work';
+  var _color = function(status, percent) {
+    var from  = (status == 'breaking') ? "#898F96" : "#5EAE22",
+        to    = (status == 'breaking') ? "#206EC8" : "#E7522D",
+        total = 100 * 100,
+        k     = percent * 100;
+    return Util.Color.interpolate(from, to, total, k);
+  }
 
-    return  {status: status, time: time, percent: percent, buttonText: text, limit_in_seconds: limit};
+  var _size = function(percent) {
+    return 220 - (110 * percent / 100);
+  }
+
+  var _presenter = function (view){
+    var f           = view.flow,
+        status      = f.status(),
+        percent     = Math.round((f.units / f.limit) * 100000) / 1000,
+        secondsLeft = (f.limit - f.units) / 1000,
+        time        = (status == 'breaking' && percent > 0  ? '-'     : ''    ) + _unitsToTime(f.count(), f.unitSize),
+        text        = (status == 'working'  && percent > 0) ? 'Rest'  : 'Work',
+        color       = _color(status, percent),
+        size        = _size(percent);
+
+    return  {status: status, time: time, color: color, size: size, buttonText: text, secondsLeft: secondsLeft};
   }
 
   var _changeTitle = function(time){
     window.document.title = "Flow" + " (" + time + ")";
   }
 
-  var _fullRepaint = function(view){
-    var presenter = _presenter(view);
-    $('#container').html(Util.render(template, presenter, {styles: styles}));
-    _changeTitle(presenter.time);
-  }
-
-  var _partialRepaint = function(view){
-    var presenter = _presenter(view);
-    $('.chronometer').attr('data-percent', presenter.percent);
-    $('.chronometer span').html(presenter.time);
-    $('.button').html(presenter.buttonText);
-    _changeTitle(presenter.time);
-  }
-
   var Chronometer  = Base.extend({
-    init: function(flow){
-      this._super(flow);
+
+    draw: function() {
+      var presenter = _presenter(this);
+      $('#container').html(Util.render(template, presenter, {styles: styles}));
+      _changeTitle(presenter.time);
     },
 
-    setup: function() {
-      this._super();
-      this.flow.break();
-      _fullRepaint(this);
-      this.flow.onLimitReached(function(){Util.Sound.play("done");});
-      this.flow.onZeroReached(function(){Util.Sound.play("tick");});
-    },
-
-    installHandlers: function(){
-      this._super();
-      $(document).on('click','.button', function(e){
-        $(this).trigger('flow.switch');
-        e.preventDefault();
+    installHandlers: function () {
+      $(document).on("click", '.button', function (e) {
+        $(this).trigger('flow.switchRequested');
       });
     },
 
-    repaint: function() {
-      _partialRepaint(this);
+    refresh: function(){
+      var presenter = _presenter(this);
+      var size = presenter.size;
+      $('.chronometer').css({'background-color': presenter.color,
+                             'height': size + 'px',
+                             'width' : size + 'px'});
+      $('.chronometer span').html(presenter.time);
+      $('.button').html(presenter.buttonText);
+      $('body').removeClass();
+      $('body').addClass(presenter.status);
+
+      _changeTitle(presenter.time);
+    },
+
+    limitReached: function(){
+      Util.Sound.play('done');
+    },
+
+    zeroReached: function(){
+      $('body').removeClass();
+      Util.Sound.play('tick');
     }
   });
 

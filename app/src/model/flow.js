@@ -1,11 +1,14 @@
-define(function(){
+define(['jquery'], function($){
 
   var Working = {
     tick: function(focus) {
-      focus.units += focus.unitSize
+      focus.units += focus.tickSize;
       if (focus.units  >= focus.limit) {
         focus.units = focus.limit;
-        focus.limitReached();
+        $(document).trigger('flow.tickDone');
+        $(document).trigger('flow.limitReached');
+      } else{
+        $(document).trigger('flow.tickDone');
       }
     },
 
@@ -13,7 +16,7 @@ define(function(){
       return focus.units;
     },
 
-    finished: function(focus) {
+    stopped: function(focus) {
       return focus.units == focus.limit;
     },
 
@@ -22,10 +25,13 @@ define(function(){
 
   var Breaking = {
     tick:  function(focus) {
-      focus.units -= Math.round((1 / (focus.factor)) * focus.unitSize);
+      focus.units -= Math.round((1 / (focus.factor)) * focus.tickSize);
       if (focus.units <= 0) {
         focus.units = 0;
-        focus.zeroReached();
+        $(document).trigger('flow.tickDone');
+        $(document).trigger('flow.zeroReached');
+      } else{
+        $(document).trigger('flow.tickDone');
       }
     },
 
@@ -33,7 +39,7 @@ define(function(){
       return focus.units * (focus.factor);
     },
 
-    finished: function(focus) {
+    stopped: function(focus) {
       return focus.units == 0;
     },
 
@@ -56,9 +62,10 @@ define(function(){
   function Flow(options){
     var options   = options || {};
 
-    this.unitSize = 1000;
-    this.factor   = options.factor  || 1/3;
-    this.limit    = (options.limit  || 90 * 60) * this.unitSize;
+    this.unitSize = options.unitSize || 10000;
+    this.tickSize = options.tickSize || 1000;
+    this.factor   = options.factor   || 1/3;
+    this.limit    = (options.limit   || 90 * 60) * this.unitSize;
 
     this.reset();
   }
@@ -66,8 +73,6 @@ define(function(){
   Flow.prototype.reset = function() {
     this.units = 0;
     this.state = Breaking;
-    this.limitCallbacks = [];
-    this.zeroCallbacks  = [];
   };
 
   Flow.prototype.count = function() {
@@ -80,6 +85,7 @@ define(function(){
 
   Flow.prototype.switch = function(){
     (this.state === Working) ? this.break() : this.work();
+    $(document).trigger('flow.switchDone');
   }
 
   Flow.prototype.break = function(){
@@ -94,29 +100,9 @@ define(function(){
     return this.state.description;
   }
 
-  Flow.prototype.finished = function() {
-    return this.state.finished(this);
+  Flow.prototype.stopped = function() {
+    return this.state.stopped(this);
   }
-
-  Flow.prototype.limitReached = function(){
-    for (var callback in this.limitCallbacks) {
-      this.limitCallbacks[callback](this);
-    }
-  }
-
-  Flow.prototype.zeroReached = function(){
-    for (var callback in this.zeroCallbacks) {
-      this.zeroCallbacks[callback](this);
-    }
-  }
-
-  Flow.prototype.onLimitReached = function(callback) {
-    this.limitCallbacks.push(callback);
-  };
-
-  Flow.prototype.onZeroReached = function(callback) {
-    this.zeroCallbacks.push(callback);
-  };
 
   return Flow;
 });
