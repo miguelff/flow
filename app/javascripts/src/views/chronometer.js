@@ -14,7 +14,7 @@ define(['jquery', 'views/base', 'util/all'], function($, Base, Util) {
         status  = f.status(),
         percent = Math.round((f.units / f.limit) * 10000) / 100,
         time    = (status == 'breaking' && percent > 0  ? '-'     : ''    ) + _millisToTime(f.count()),
-        text    = (status == 'working'  && percent > 0) ? 'rest'  : 'flow';
+        text    = (status == 'working'  && percent > 0) ? 'Rest'  : 'Work';
 
     return  {status: status, time: time, percent: percent, buttonText: text};
   }

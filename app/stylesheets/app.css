@@ -1,16 +1,12 @@
 @import "normalize.css";
 
-@-webkit-keyframes pulse {
-  0% { }
-  50% { }
-  100% { }
-}
-
 *, *:before, *:after {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 body {
+  /* background-image: url(/images/baseline.png); */
   background-color: #191919;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica", sans-serif;
   font-size: 14px;
@@ -28,19 +24,21 @@ body {
   width: 380px;
 }
 
+/* Settings */
+
 .settings {
-  -webkit-transition: opacity 0.5s linear;
-  transition: opacity 0.5s linear;
-  background: url(/images/icons/settings.svg) no-repeat;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  background: url(/images/icons/settings.svg) no-repeat center;
   color: #666;
   display: block;
   float: right;
-  line-height: 24px;
-  opacity: 0.25;
+  height: 26px;
+  opacity: 0.2;
   overflow: hidden;
   text-decoration: none;
   text-indent: -9999px;
-  width: 24px;
+  width: 26px;
 }
 
 .settings:hover {
@@ -51,33 +49,90 @@ body {
   color: #fff;
 }
 
+/* Ball */
+
+.chronometer::after {
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  background: #898F96;
+  border-radius: 9999px;
+  content: "";
+  display: block;
+  height: 220px;
+  margin-top: -132px;
+  opacity: 1;
+  position: relative;
+  width: 220px;
+}
+
 .chronometer {
-  /*-webkit-animation: pulse 2s infinite ease-in-out;*/
-  background-color: #8BBE2D;
+  -webkit-transition: all 2400s ease-in-out;
+  transition: all 2400s ease-in-out;
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+  background: #5EAE22;
   border-radius: 9999px;
   clear: both;
   color: #fff;
-  cursor: pointer;
   display: block;
   height: 220px;
   margin: 44px auto 66px auto;
   width: 220px;
 }
 
-.chronometer:hover span {
+/* Working */
+
+.working .chronometer {
+  -webkit-transform: scale(0.5, 0.5);
+  transform: scale(0.5, 0.5);
+  background: #E7522D;
+}
+
+.working .chronometer::after {
+  opacity: 0;
+}
+
+/* Breaking */
+
+.breaking .chronometer {
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+  background: #5EAE22;
+}
+
+.breaking .chronometer::after {
+  background: #206EC8;
   opacity: 1;
 }
+
+/* Count */
 
 .chronometer span {
   -webkit-transition: opacity 0.25s ease-out;
   transition: opacity 0.25s ease-out;
+  position: relative;
   display: block;
   font-size: 20px;
   line-height: 44px;
   opacity: 0;
   padding-top: 88px;
   text-align: center;
+  z-index: 9999;
 }
+
+.chronometer:hover span {
+  opacity: 1;
+}
+
+.breaking .chronometer span {
+  -webkit-transition-delay: 0.9s;
+  transition-delay: 0.9s;
+  opacity: 1;
+}
+
+/* Button */
 
 .button {
   -webkit-transition: all 0.5s linear;
@@ -86,12 +141,14 @@ body {
   border: 3px solid #323232;
   color: #eee;
   display: block;
-  font-size: 16px;
-  line-height: 38px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 40px;
   margin: 0 auto;
   text-align: center;
   text-decoration: none;
   width: 160px;
+  text-transform: uppercase;
 }
 
 .button:hover {
