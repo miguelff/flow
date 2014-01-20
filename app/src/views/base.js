@@ -8,7 +8,6 @@
  */
 define(['jquery','class'], function ($, Class) {
 
-
   var Base = Class.extend({
     init: function (flow) {
       this.flow = flow;
