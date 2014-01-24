@@ -31,16 +31,14 @@ require.config({
 });
 
 // Start the main app logic, eager loading the main model and all views
-requirejs(['controllers/default'], function (Controller) {
+requirejs(['controllers/default', 'util/url'], function (Controller, Url) {
   Controller.init({
     theme: 'chronometer',
 
     modelOptions: {
       // 1 fps
-      tickSize: 1000,
-      unitSize: 1000,
-      limit : 60 * 60,
-      factor:.3
+      limit : parseInt(Url.param("limit"))    || 60 * 60,
+      factor: parseFloat(Url.param("factor")) || .3
     }
   });
 });
