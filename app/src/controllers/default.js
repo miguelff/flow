@@ -24,9 +24,9 @@ define(['jquery'], function($) {
     $(document).ready(function(){
       view.load();
       var worker = new Worker('src/controllers/tick.js');
-      worker.addEventListener('message', function() {
+      worker.addEventListener('message', function(e) {
         if(!model.stopped()){
-          model.tick();
+          model.tick(e.data);
         }
       }, false);
     });

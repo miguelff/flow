@@ -1,8 +1,8 @@
 define(['jquery'], function($){
 
   var Working = {
-    tick: function(focus) {
-      focus.units += focus.tickSize;
+    tick: function(elapsed, focus) {
+      focus.units += elapsed;
       if (focus.units  >= focus.limit) {
         focus.units = focus.limit;
         $(document).trigger('flow.tickDone');
@@ -24,8 +24,8 @@ define(['jquery'], function($){
   };
 
   var Breaking = {
-    tick:  function(focus) {
-      focus.units -= Math.round((1 / (focus.factor)) * focus.tickSize);
+    tick:  function(elapsed, focus) {
+      focus.units -= Math.round((1 / (focus.factor)) * elapsed);
       if (focus.units <= 0) {
         focus.units = 0;
         $(document).trigger('flow.tickDone');
@@ -62,8 +62,7 @@ define(['jquery'], function($){
   function Flow(options){
     var options   = options || {};
 
-    this.unitSize = options.unitSize || 10000;
-    this.tickSize = options.tickSize || 1000;
+    this.unitSize = options.unitSize || 1000;
     this.factor   = options.factor   || 1/3;
     this.limit    = (options.limit   || 90 * 60) * this.unitSize;
 
@@ -79,8 +78,8 @@ define(['jquery'], function($){
     return this.state.count(this);
   };
 
-  Flow.prototype.tick = function() {
-    this.state.tick(this);
+  Flow.prototype.tick = function(elapsed) {
+    this.state.tick(elapsed, this);
   }
 
   Flow.prototype.switch = function(){
