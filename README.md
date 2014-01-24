@@ -25,7 +25,19 @@ If you are a programmer or a designer, and like me, you perform better when deep
 Flow in action
 --------------
 
+Here you are:
+
 http://flownow.herokuapp.com/
+
+You can customize the duration of the work phase and the rest factor. The following sets a flow instance with a limit of 2 minutes working and a rest factor of 50%, which means that you will earn 30 seconds each minute to rest:
+
+http://flownow.herokuapp.com/?limit=120&factor=0.5
+
+The default one is thought for cycles up to one hour of work and a rest factor of 30%, which is the same as if we customized flow this way:
+
+http://flownow.herokuapp.com/?limit=3600&factor=0.3
+
+
 
 Want to contribute?
 -------------------
