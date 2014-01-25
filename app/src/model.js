@@ -86,5 +86,4 @@ define(['infrastructure/event-emitter'], function (EventEmitter) {
       return this.state.stopped();
     }
   };
-
 });
