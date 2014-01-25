@@ -1,110 +1,90 @@
-define(['jquery'], function ($) {
+define(['infrastructure/event-emitter'], function (EventEmitter) {
 
-  var Working = {
-    tick: function (elapsed, focus) {
-      focus.units += elapsed;
-      if (focus.units >= focus.limit) {
-        focus.units = focus.limit;
-        $(document).trigger('flow.tickDone');
-        $(document).trigger('flow.limitReached');
-      } else {
-        $(document).trigger('flow.tickDone');
-      }
+  var Breaking = function (model) {
+
+    return {
+      tick: function (elapsed) {
+        model.units -= Math.round((1 / (model.factor)) * elapsed);
+        if (model.units <= 0) {
+          model.units = 0;
+          model.emitter.trigger('flow.tickDone');
+          model.emitter.trigger('flow.zeroReached');
+        } else {
+          model.emitter.trigger('flow.tickDone');
+        }
+      },
+
+      count: function () {
+        return model.units * (model.factor);
+      },
+
+      stopped: function () {
+        return model.units == 0;
+      },
+
+      description: 'breaking'
+    };
+  }
+
+  var Working = function (model) {
+
+    return {
+      tick: function (elapsed) {
+        model.units += elapsed;
+        if (model.units >= model.limit) {
+          model.units = model.limit;
+          model.emitter.trigger('flow.tickDone');
+          model.emitter.trigger('flow.limitReached');
+        } else {
+          model.emitter.trigger('flow.tickDone');
+        }
+      },
+
+      count: function () {
+        return model.units;
+      },
+
+      stopped: function () {
+        return model.units == model.limit;
+      },
+
+      description: "working"
+    };
+  }
+
+  return {
+    init: function (options) {
+      var millisPerSec = 1000,
+          options = options || {};
+
+      this.factor = options.factor || 1 / 3;
+      this.limit = (options.limit || 90 * 60) * millisPerSec;
+      this.units = 0;
+      this.state = Breaking(this);
+      this.emitter = EventEmitter;
+      return this;
     },
 
-    count: function (focus) {
-      return focus.units;
+    tick: function (elapsed) {
+      this.state.tick(elapsed);
     },
 
-    stopped: function (focus) {
-      return focus.units == focus.limit;
+    count: function () {
+      return this.state.count();
     },
 
-    description: "working"
+    status: function () {
+      return this.state.description;
+    },
+
+    switch: function () {
+      this.state = (this.status() === 'breaking') ? Working(this) : Breaking(this);
+      this.emitter.trigger('flow.switchDone');
+    },
+
+    stopped: function () {
+      return this.state.stopped();
+    }
   };
-
-  var Breaking = {
-    tick: function (elapsed, focus) {
-      focus.units -= Math.round((1 / (focus.factor)) * elapsed);
-      if (focus.units <= 0) {
-        focus.units = 0;
-        $(document).trigger('flow.tickDone');
-        $(document).trigger('flow.zeroReached');
-      } else {
-        $(document).trigger('flow.tickDone');
-      }
-    },
-
-    count: function (focus) {
-      return focus.units * (focus.factor);
-    },
-
-    stopped: function (focus) {
-      return focus.units == 0;
-    },
-
-    description: "breaking"
-  };
-
-  /**
-   * While ticked, a flow object adds time when
-   * in working state, and substracts time in breaking state
-   * at a certain factor.
-   *
-   * @param options an object that can contain the following values
-   *
-   * {
-   *   factor: defaults to 1/3 and is the factor at which deaccumulates
-   *            time in resting state
-   *
-   *   limit:  the maximum time it can accumulate while working
-   *            (expressed in seconds) defaults to 90 minutes
-   * }
-   */
-  function Flow(options) {
-    var options = options || {};
-
-    this.unitSize = options.unitSize || 1000;
-    this.factor = options.factor || 1 / 3;
-    this.limit = (options.limit || 90 * 60) * this.unitSize;
-
-    this.reset();
-  }
-
-  Flow.prototype.reset = function () {
-    this.units = 0;
-    this.state = Breaking;
-  };
-
-  Flow.prototype.count = function () {
-    return this.state.count(this);
-  };
-
-  Flow.prototype.tick = function (elapsed) {
-    this.state.tick(elapsed, this);
-  }
-
-  Flow.prototype.switch = function () {
-    (this.state === Working) ? this.break() : this.work();
-    $(document).trigger('flow.switchDone');
-  }
-
-  Flow.prototype.break = function () {
-    this.state = Breaking;
-  }
-
-  Flow.prototype.work = function () {
-    this.state = Working;
-  }
-
-  Flow.prototype.status = function () {
-    return this.state.description;
-  }
-
-  Flow.prototype.stopped = function () {
-    return this.state.stopped(this);
-  }
-
-  return Flow;
 
 });

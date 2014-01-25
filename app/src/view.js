@@ -1,23 +1,45 @@
 /**
  * View
  *
- * Provides common behaviour for all views
- * Children should define the following properties:
- *  - createContainer: creates the HTML structure for holding view elements
- *  - repaint: refreshes the content rendered on the browser
+ * By extending it with a theme, the view will model
+ * the interactions with flow.
+ *
+ * A view has to respond to:
+ *  - draw()
+ *  - refresh()
+ *  - limitReached()
+ *  - zeroReached()
+ *
+ * And raise the event 'flow.switchRequested' when
+ * the user interacts with the view to request a change
+ * in the flow direction (from working to breaking or viceversa)
  */
-define(['jquery','class'], function ($, Class) {
+define(function () {
 
-  var View = Class.extend({
-    init: function (flow) {
+  return {
+    init: function (flow, options) {
       this.flow = flow;
+      this.options = options;
+      return this;
     },
 
-    load: function(){
+    load: function () {
       this.draw();
       this.installHandlers();
-    }
-  });
+    },
 
-  return View;
+    extend: function (theme) {
+      var mixin = {};
+
+      for(var prop in this) {
+        mixin[prop] = this[prop];
+      }
+
+      for(var prop in theme) {
+        mixin[prop] = theme[prop];
+      }
+
+      return mixin;
+    }
+  };
 });
