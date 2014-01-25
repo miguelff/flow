@@ -57,6 +57,7 @@ define(['jquery',
         installHandlers: function () {
           $(document).on("click", '.button', function (e) {
             EventEmitter.trigger('flow.switchRequested');
+            e.preventDefault();
           });
         },
 
