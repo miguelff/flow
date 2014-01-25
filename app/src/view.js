@@ -1,5 +1,5 @@
 /**
- * Base
+ * View
  *
  * Provides common behaviour for all views
  * Children should define the following properties:
@@ -8,7 +8,7 @@
  */
 define(['jquery','class'], function ($, Class) {
 
-  var Base = Class.extend({
+  var View = Class.extend({
     init: function (flow) {
       this.flow = flow;
     },
@@ -19,5 +19,5 @@ define(['jquery','class'], function ($, Class) {
     }
   });
 
-  return Base;
+  return View;
 });

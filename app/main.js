@@ -21,17 +21,14 @@ require.config({
   },
 
   paths: {
-    models:      '../src/model',
-    views:       '../src/views',
-    controllers: '../src/controllers',
     util:        '../src/util',
     app:         '../src',
     themes:      '../themes'
   }
 });
 
-// Start the main app logic, eager loading the main model and all views
-requirejs(['controllers/default', 'util/url'], function (Controller, Url) {
+requirejs(['app/controller', 'util/url'], function (Controller, Url) {
+
   Controller.init({
     theme: 'chronometer',
 
@@ -41,4 +38,5 @@ requirejs(['controllers/default', 'util/url'], function (Controller, Url) {
       factor: parseFloat(Url.param("factor")) || .3
     }
   });
+
 });
