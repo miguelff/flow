@@ -29,13 +29,15 @@ Here you are:
 
 http://flownow.herokuapp.com/
 
-You can customize the duration of the work phase and the rest factor. The following sets a flow instance with a limit of 2 minutes working and a rest factor of 50%, which means that you will earn 30 seconds each minute to rest:
+You can customize the duration of the work phase and the rest factor.
 
-http://flownow.herokuapp.com/?limit=120&factor=0.5
-
-The default one is thought for cycles up to one hour of work and a rest factor of 30%, which is the same as if we customized flow this way:
+The default one is thought for cycles **up to** one hour of work and a rest factor of 30%, which is the same as if we customized flow this way:
 
 http://flownow.herokuapp.com/?limit=3600&factor=0.3
+
+For demoing the UI, the following one is configured with a limit of 30 seconds working and a rest factor of 50% (rest half of the time):
+
+http://flownow.herokuapp.com/?limit=30&factor=0.5
 
 
 
@@ -53,4 +55,4 @@ Make your changes, and if you are proud of them, open a pull-request.
 Credits
 -------
 
-Copyright (c) 2014 Miguel Fernández and Marcelino Llano and Buti Romero. Released under the MIT license.
+Copyright (c) 2014, [Miguel Fernández](https://github.com/miguelff), [Marcelino Llano](https://github.com/marcelinollano) and [Buti Romero](https://github.com/nobuti). Released under the MIT license.
