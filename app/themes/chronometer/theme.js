@@ -7,9 +7,9 @@ define(['jquery',
 
       var finishFx = new Audio('themes/chronometer/sounds/ping.wav');
 
-      var _unitsToTime = function (units, precision) {
-        var ss = Math.floor(units / precision) % 60,
-            mm = Math.floor(units / (60 * precision));
+      var _secondsToTime = function (seconds) {
+        var ss = Math.floor(seconds) % 60,
+            mm = Math.floor(seconds / 60);
 
         return (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss;
       };
@@ -20,10 +20,10 @@ define(['jquery',
             status = f.status(),
             percent = Math.round((f.units / f.limit) * 100 * millisPerSecond) / millisPerSecond,
             secondsLeft = (f.limit - f.units) / millisPerSecond,
-            time = (status == 'breaking' && percent > 0 ? '-' : ''    ) + _unitsToTime(f.count(), millisPerSecond),
-            text = (status == 'working' && percent > 0) ? 'Rest' : 'Work';
+            seconds = Math.floor(f.count() / millisPerSecond),
+            time = (status == 'breaking' && seconds > 0 ? '-' : ''    ) + _secondsToTime(seconds);
 
-        return  {status: status, time: time, wrapperClass: text, secondsLeft: secondsLeft, percent: percent};
+        return  {status: status, time: time, secondsLeft: secondsLeft, percent: percent};
       }
 
       var _changeTitle = function (time) {

@@ -8,9 +8,9 @@ define(['jquery',
       var limitFx = new Audio('themes/bubble/sounds/tick.wav'),
           zeroFx = new Audio('themes/bubble/sounds/done.wav');
 
-      var _unitsToTime = function (units, precision) {
-        var ss = Math.floor(units / precision) % 60,
-            mm = Math.floor(units / (60 * precision));
+      var _secondsToTime = function (seconds) {
+        var ss = Math.floor(seconds) % 60,
+            mm = Math.floor(seconds / 60);
 
         return (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss;
       };
@@ -33,8 +33,9 @@ define(['jquery',
             millisPerSecond = 1000,
             status = f.status(),
             percent = Math.round((f.units / f.limit) * 100 * millisPerSecond) / millisPerSecond,
-            time = (status == 'breaking' && percent > 0 ? '-' : ''    ) + _unitsToTime(f.count(), millisPerSecond),
-            text = (status == 'working' && percent > 0) ? 'Rest' : 'Work',
+            seconds = Math.floor(f.count() / millisPerSecond),
+            time = (status == 'breaking' && seconds > 0 ? '-' : '') + _secondsToTime(seconds),
+            text = (status == 'working' && seconds > 0) ? 'Rest' : 'Work',
             color = _color(status, percent),
             scale = _scale(percent);
 
