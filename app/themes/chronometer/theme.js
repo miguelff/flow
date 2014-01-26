@@ -1,11 +1,11 @@
 define(['jquery',
   'infrastructure/event-emitter',
-  'util/all',
+  'util/render',
   'text!./template.html',
   'text!./stylesheet.css'],
-    function ($, EventEmitter, Util, template, styles) {
+    function ($, EventEmitter, render, template, styles) {
 
-      Util.Sound.registerSound({id: 'ping', src: 'themes/chronometer/sounds/ping.wav'});
+      var finishFx = new Audio('themes/chronometer/sounds/ping.wav');
 
       var _unitsToTime = function (units, precision) {
         var ss = Math.floor(units / precision) % 60,
@@ -39,7 +39,7 @@ define(['jquery',
 
         draw: function () {
           var presenter = _presenter(this);
-          $('#container').html(Util.render(template, presenter, {styles: styles}));
+          $('#container').html(render(template, presenter, {styles: styles}));
           _changeTitle(presenter.time);
         },
 
@@ -62,12 +62,12 @@ define(['jquery',
         },
 
         limitReached: function () {
-          Util.Sound.play('ping');
+          finishFx.play('ping');
         },
 
         zeroReached: function () {
           $('body').removeClass();
-          Util.Sound.play('ping');
+          finishFx.play('ping');
         }
       };
     });
