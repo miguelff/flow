@@ -5,8 +5,8 @@ define(['jquery',
   'text!./stylesheet.css'],
     function ($, EventEmitter, Util, template, styles) {
 
-      Util.Sound.registerSound({id: 'tick', src: 'themes/chronometer/sounds/tick.wav'});
-      Util.Sound.registerSound({id: 'done', src: 'themes/chronometer/sounds/done.wav'});
+      Util.Sound.registerSound({id: 'tick', src: 'themes/bubble/sounds/tick.wav'});
+      Util.Sound.registerSound({id: 'done', src: 'themes/bubble/sounds/done.wav'});
 
       var _unitsToTime = function (units, precision) {
         var ss = Math.floor(units / precision) % 60,
