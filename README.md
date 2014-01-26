@@ -39,9 +39,8 @@ For demoing the UI, the following one is configured with a limit of 30 seconds w
 
 http://flownow.herokuapp.com/?limit=30&factor=0.5
 
-Another cool thing of flow is that it is really easy to add and use different ways of interacting with it. The bubble is the default theme,
-but you can easily create a different one if you wish. Checkout the [themes source directory](https://github.com/miguelff/flow/tree/master/app/themes),
-and this demo:
+Another cool thing about flow, is that it's really easy to add different ways of interacting with it. The bubble is the default [theme](https://github.com/miguelff/flow/tree/master/app/themes),
+but you can easily create a different one:
 
 http://flownow.herokuapp.com/?theme=chronometer&limit=60&factor=0.2
 
