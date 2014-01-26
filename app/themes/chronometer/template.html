@@ -1,9 +1,10 @@
+
 <style>
     {{> styles }}
 </style>
-
-<div class="chronometer">
+<div id="wrapper">
+    <div id="progress" style="width: {{percent}}%;"></div>
+</div>
+<div id="chronometer">
   <span>{{time}}</span>
 </div>
-
-<a href="#" class="button">{{buttonText}}</a>

@@ -1,0 +1,91 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  /* background-image: url(/themes/chronometer/images/baseline.png); */
+  background-color: #191919;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica", sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+#container {
+  bottom: 0;
+  height: 380px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 380px;
+}
+
+/* Ball */
+.chronometer {
+  background: #898F96;
+  border-radius: 9999px;
+  clear: both;
+  color: #fff;
+  display: block;
+  height: 220px;
+  margin: 44px auto;
+  width: 220px;
+}
+
+/* Count */
+
+.chronometer span {
+  -webkit-transition: opacity 0.25s ease-out;
+  transition: opacity 0.25s ease-out;
+  position: relative;
+  display: block;
+  font-size: 20px;
+  line-height: 44px;
+  opacity: 0;
+  padding-top: 88px;
+  text-align: center;
+  z-index: 9999;
+}
+
+.chronometer:hover span {
+  opacity: 1;
+}
+
+.breaking .chronometer span {
+  -webkit-transition-delay: 0.9s;
+  transition-delay: 0.9s;
+  opacity: 1;
+}
+
+/* Button */
+
+.button {
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  border-radius: 9999px;
+  border: 3px solid #323232;
+  color: #eee;
+  display: block;
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 40px;
+  margin: 0 auto;
+  text-align: center;
+  text-decoration: none;
+  width: 160px;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  border-color: #555;
+  color: #fff;
+}
+
+.button:active {
+  background-color: #555;
+  border-color: #555;
+  color: #fff;
+}
+

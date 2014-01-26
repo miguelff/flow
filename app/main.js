@@ -31,7 +31,7 @@ require.config({
 requirejs(['app/controller', 'util/url'], function (Controller, Url) {
 
   Controller.init({
-    theme: Url.param('theme') || 'chronometer',
+    theme: Url.param('theme') || 'bubble',
 
     modelOptions: {
       limit: parseInt(Url.param("limit")) || 60 * 60,
