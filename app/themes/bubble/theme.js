@@ -5,8 +5,8 @@ define(['jquery',
   'text!./stylesheet.css'],
     function ($, EventEmitter, Util, template, styles) {
 
-      Util.Sound.registerSound({id: 'tick', src: 'themes/bubble/sounds/tick.wav'});
-      Util.Sound.registerSound({id: 'done', src: 'themes/bubble/sounds/done.wav'});
+      var limitFx = new Audio('themes/bubble/sounds/tick.wav'),
+          zeroFx = new Audio('themes/bubble/sounds/done.wav');
 
       var _unitsToTime = function (units, precision) {
         var ss = Math.floor(units / precision) % 60,
@@ -77,12 +77,12 @@ define(['jquery',
         },
 
         limitReached: function () {
-          Util.Sound.play('done');
+          limitFx.play();
         },
 
         zeroReached: function () {
           $('body').removeClass();
-          Util.Sound.play('tick');
+          zeroFx.play();
         }
       };
     });

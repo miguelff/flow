@@ -80,6 +80,44 @@ define(['app/model'], function (Model) {
         flow.tick(flow.limit);
         expect(flow.stopped()).toBe(true);
       });
+
+      describe('avoid fractions of seconds on lower limit', function(){
+
+        it('less then a second left', function(){
+          flow.units = 10000
+          flow.factor = 1
+          flow.tick(9900);
+          expect(flow.count()).toBe(0);
+          expect(flow.emitter.trigger).toHaveBeenCalledWith('flow.zeroReached');
+        });
+
+        it('at least a second left', function(){
+          flow.units = 10000
+          flow.factor = 1
+          flow.tick(9000);
+          expect(flow.count()).toBe(1000);
+          expect(flow.emitter.trigger).not.toHaveBeenCalledWith('flow.zeroReached');
+        });
+      });
+
+      describe('avoid fractions of seconds on upper limit', function(){
+
+        it('less then a second left', function(){
+          flow.limit = 10000
+          flow.switch();
+          flow.tick(9900);
+          expect(flow.count()).toBe(10000);
+          expect(flow.emitter.trigger).toHaveBeenCalledWith('flow.limitReached');
+        });
+
+        it('at least a second left', function(){
+          flow.limit = 10000
+          flow.switch();
+          flow.tick(9000);
+          expect(flow.count()).toBe(9000);
+          expect(flow.emitter.trigger).not.toHaveBeenCalledWith('flow.limitReached');
+        });
+      });
     });
   });
 });

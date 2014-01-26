@@ -1,11 +1,13 @@
 define(['infrastructure/event-emitter'], function (EventEmitter) {
 
+  var millisPerSec = 1000;
+
   var Breaking = function (model) {
 
     return {
       tick: function (elapsed) {
         model.units -= Math.round((1 / (model.factor)) * elapsed);
-        if (model.units <= 0) {
+        if (model.units < millisPerSec) {
           model.units = 0;
           model.emitter.trigger('flow.tickDone');
           model.emitter.trigger('flow.zeroReached');
@@ -31,7 +33,7 @@ define(['infrastructure/event-emitter'], function (EventEmitter) {
     return {
       tick: function (elapsed) {
         model.units += elapsed;
-        if (model.units >= model.limit) {
+        if (model.units > model.limit - millisPerSec) {
           model.units = model.limit;
           model.emitter.trigger('flow.tickDone');
           model.emitter.trigger('flow.limitReached');
@@ -54,8 +56,7 @@ define(['infrastructure/event-emitter'], function (EventEmitter) {
 
   return {
     init: function (options) {
-      var millisPerSec = 1000,
-          options = options || {};
+      var options = options || {};
 
       this.factor = options.factor || 1 / 3;
       this.limit = (options.limit || 90 * 60) * millisPerSec;
