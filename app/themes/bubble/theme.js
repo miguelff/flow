@@ -33,13 +33,12 @@ define(['jquery',
             millisPerSecond = 1000,
             status = f.status(),
             percent = Math.round((f.units / f.limit) * 100 * millisPerSecond) / millisPerSecond,
-            secondsLeft = (f.limit - f.units) / millisPerSecond,
             time = (status == 'breaking' && percent > 0 ? '-' : ''    ) + _unitsToTime(f.count(), millisPerSecond),
             text = (status == 'working' && percent > 0) ? 'Rest' : 'Work',
             color = _color(status, percent),
             scale = _scale(percent);
 
-        return  {status: status, time: time, color: color, scale: scale, buttonText: text, secondsLeft: secondsLeft};
+        return  {status: status, time: time, color: color, scale: scale, buttonText: text};
       }
 
       var _changeTitle = function (time) {

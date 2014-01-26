@@ -7,7 +7,7 @@ define(['infrastructure/event-emitter'], function (EventEmitter) {
     return {
       tick: function (elapsed) {
         model.units -= Math.round((1 / (model.factor)) * elapsed);
-        if (model.units < millisPerSec) {
+        if (model.units < (millisPerSec * model.factor)) {
           model.units = 0;
           model.emitter.trigger('flow.tickDone');
           model.emitter.trigger('flow.zeroReached');
