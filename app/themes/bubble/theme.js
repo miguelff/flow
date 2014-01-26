@@ -1,10 +1,9 @@
 define(['jquery',
-  'app/view',
   'infrastructure/event-emitter',
   'util/all',
   'text!./template.html',
   'text!./stylesheet.css'],
-    function ($, View, EventEmitter, Util, template, styles) {
+    function ($, EventEmitter, Util, template, styles) {
 
       Util.Sound.registerSound({id: 'tick', src: 'themes/chronometer/sounds/tick.wav'});
       Util.Sound.registerSound({id: 'done', src: 'themes/chronometer/sounds/done.wav'});
