@@ -1,10 +1,21 @@
 <!doctype html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <!-- Microsoft -->
+    <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1">
+
     <title>Flow</title>
     <link rel="stylesheet" href="stylesheets/normalize.css">
 </head>
 <body>
+<script>
+    var b = document.documentElement;
+      b.className += ((!!('ontouchstart' in window) || !!('onmsgesturechange' in window))?' touch':'');
+</script>
+
 <div id="container"></div>
 <script data-main="main.js" src="lib/require.js"></script>
 </body>
