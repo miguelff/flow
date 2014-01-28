@@ -34,8 +34,8 @@ requirejs(['app/controller', 'util/url'], function (Controller, Url) {
     theme: Url.param('theme') || 'bubble',
 
     modelOptions: {
-      limit: parseInt(Url.param("limit")) || 60 * 60,
-      factor: parseFloat(Url.param("factor")) || .3
+      limit: Url.param("limit") || 60 * 60,
+      factor: Url.param("factor") || .3
     }
   });
 
