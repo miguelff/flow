@@ -33,7 +33,7 @@ define(['juration','infrastructure/event-emitter'], function (juration, EventEmi
     return {
       tick: function (elapsed) {
         model.units += elapsed;
-        if (model.units > model.limit - millisPerSec) {
+        if (model.units > model.limit) {
           model.units = model.limit;
           model.emitter.trigger('flow.tickDone');
           model.emitter.trigger('flow.limitReached');

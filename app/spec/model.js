@@ -106,16 +106,7 @@ define(['app/model'], function (Model) {
         });
       });
 
-      describe('avoid fractions of seconds on upper limit', function(){
-
-        it('less then a second left', function(){
-          flow.limit = 10000
-          flow.switch();
-          flow.tick(9900);
-          expect(flow.count()).toBe(10000);
-          expect(flow.emitter.trigger).toHaveBeenCalledWith('flow.limitReached');
-        });
-
+      describe('avoid fractions of seconds on upper limit', function(){        
         it('at least a second left', function(){
           flow.limit = 10000
           flow.switch();
