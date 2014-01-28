@@ -33,16 +33,16 @@ You can customize the duration of the work phase and the rest factor.
 
 The default one is thought for cycles **up to** one hour of work and a rest factor of 30%, which is the same as if we customized flow this way:
 
-http://flownow.herokuapp.com/?limit=3600&factor=0.3
+http://flownow.herokuapp.com/?limit=1hour&factor=0.3
 
 For demoing the UI, the following one is configured with a limit of 30 seconds working and a rest factor of 50% (rest half of the time):
 
-http://flownow.herokuapp.com/?limit=30&factor=0.5
+http://flownow.herokuapp.com/?limit=30seconds&factor=0.5
 
 Another cool thing about flow, is that it's really easy to add different ways of interacting with it. The bubble is the default [theme](https://github.com/miguelff/flow/tree/master/app/themes),
 but you can easily create a different one:
 
-http://flownow.herokuapp.com/?theme=chronometer&limit=60&factor=0.2
+http://flownow.herokuapp.com/?theme=chronometer&limit=60seconds&factor=0.2
 
 
 Want to contribute?
@@ -59,4 +59,12 @@ Make your changes, and if you are proud of them, open a pull-request.
 Credits
 -------
 
-Copyright (c) 2014, [Miguel Fernández](https://github.com/miguelff), [Marcelino Llano](https://github.com/marcelinollano) and [Buti Romero](https://github.com/nobuti). Released under the MIT license.
+Copyright (c) 2014, [Miguel Fernández](https://github.com/miguelff), Released under the MIT license.
+
+Flow is that cool because of the work done by its contributors:
+* [Marcelino Llano](https://github.com/marcelinollano)
+* [Buti Romero](https://github.com/nobuti)
+* [Fernando Blat](https://github.com/ferblape)
+
+
+
