@@ -10,10 +10,16 @@ define(['app/model'], function (Model) {
         expect(model.limit).toBe(90 * 60 * 1000)
       });
 
-      it('sets provided options', function () {
+      it('sets provided options as integers', function () {
         var model = Model.init({factor: .5, limit: 100});
         expect(model.factor).toBe(1 / 2);
         expect(model.limit).toBe(100 * 1000);
+      });
+
+      it('sets provided options as text', function () {
+        var model = Model.init({factor: .5, limit: '30mins'});
+        expect(model.factor).toBe(1 / 2);
+        expect(model.limit).toBe(30*60 * 1000);
       });
 
     });

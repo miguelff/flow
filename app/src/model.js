@@ -1,4 +1,4 @@
-define(['infrastructure/event-emitter'], function (EventEmitter) {
+define(['juration','infrastructure/event-emitter'], function (juration, EventEmitter) {
 
   var millisPerSec = 1000;
 
@@ -57,9 +57,10 @@ define(['infrastructure/event-emitter'], function (EventEmitter) {
   return {
     init: function (options) {
       var options = options || {};
+      var limit = (options.limit || 90 * 60).toString();
 
       this.factor = options.factor || 1 / 3;
-      this.limit = (options.limit || 90 * 60) * millisPerSec;
+      this.limit = juration.parse(limit) * millisPerSec;
       this.units = 0;
       this.state = Breaking(this);
       this.emitter = EventEmitter;
