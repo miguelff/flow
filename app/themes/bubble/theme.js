@@ -35,7 +35,7 @@ define(['jquery',
             percent = Math.round((f.units / f.limit) * 100 * millisPerSecond) / millisPerSecond,
             seconds = Math.floor(f.count() / millisPerSecond),
             time = (status == 'breaking' && seconds > 0 ? '-' : '') + _secondsToTime(seconds),
-            text = (status == 'working' && seconds > 0) ? 'Rest' : 'Work',
+            text = (status == 'working' && seconds > 0) ? 'Pause' : 'Play',
             color = _color(status, percent),
             scale = _scale(percent);
 
