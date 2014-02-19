@@ -66,5 +66,5 @@ Flow is that cool because of the work done by its contributors:
 * [Buti Romero](https://github.com/nobuti)
 * [Fernando Blat](https://github.com/ferblape)
 * [Jorge Manrubia](https://github.com/jorgemanrubia)
-
+* [Pau Valiente](https://github.com/pauvaliente)
 
