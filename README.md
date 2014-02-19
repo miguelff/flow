@@ -63,7 +63,7 @@ Copyright (c) 2014, [Miguel Fernández](https://github.com/miguelff), Released u
 
 Flow is that cool because of the work done by its contributors:
 * [Marcelino Llano](https://github.com/marcelinollano)
-* [Buti Romero](https://github.com/nobuti)
+* [Miguel Romero](https://github.com/nobuti)
 * [Fernando Blat](https://github.com/ferblape)
 * [Jorge Manrubia](https://github.com/jorgemanrubia)
 * [Pau Valiente](https://github.com/pauvaliente)
