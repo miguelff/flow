@@ -1,5 +1,5 @@
 use Rack::Static,
-    :urls => ["/main.js", "/lib", "/src", "/spec", "/images", "/stylesheets", "/sounds", "/themes"],
+    :urls => ["/apple-touch-icon.png", "/main.js", "/lib", "/src", "/spec", "/images", "/stylesheets", "/sounds", "/themes"],
     :root => "app"
 
 run lambda { |env|
