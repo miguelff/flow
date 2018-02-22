@@ -3,6 +3,8 @@ Flow
 
 Time management under your terms.
 
+<img width="705" alt="screenshot_631" src="https://user-images.githubusercontent.com/210307/36554027-4517434c-17fe-11e8-9a38-b4fda9c6fb4b.png">
+
 Why Flow
 --------
 
